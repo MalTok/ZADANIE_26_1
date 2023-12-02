@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+    <title>Formularz</title>
+</head>
+<body>
+<main layout:fragment="content">
+    <div class="container">
+        <form th:action="@{/add}" action="/add" method="post" th:object="${recipe}">
+            <div class="mb-3">
+                <label class="form-label">
+                    Tytuł przepisu
+                    <input type="text" class="form-control" th:field="*{title}" placeholder="Rosół">
+                </label>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">
+                    Krótki opis
+                    <input type="text" class="form-control" th:field="*{description}" placeholder="Staropolski rosół z kury">
+                </label>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">
+                    Kategoria (zaznacz wiele z CTRL)
+                    <select class="form-select mb-3" multiple="multiple" th:field="*{categories}">
+                        <option th:each="category: ${categories}" th:value="${category.id}" th:text="${category.name}">Kategoria</option>
+                    </select>
+                </label>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">
+                    Ilość porcji
+                    <input type="number" step="1" class="form-control" th:field="*{portion}" placeholder="3">
+                </label>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">
+                    Składniki
+                    <textarea class="form-control" th:field="*{ingredients}" placeholder="Woda-2 l;Kura-1 szt;"></textarea>
+                </label>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">
+                    Przygotowanie
+                    <textarea class="form-control" th:field="*{preparation}" placeholder="Do garnka włóż..."></textarea>
+                </label>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">
+                    Wskazówki
+                    <textarea class="form-control" th:field="*{hints}" placeholder="Kurkuma doda rosołowi koloru"></textarea>
+                </label>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">
+                    Adres obrazka
+                    <input type="text" class="form-control" th:field="*{img}" placeholder="rosol.jpg">
+                </label>
+            </div>
+            <button class="search-button" type="submit">ZAPISZ</button>
+        </form>
+    </div>
+</main>
+</body>
+</html>>

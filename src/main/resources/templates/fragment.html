@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="https://www.thymeleaf.org">
+<body>
+<header th:fragment="header">
+    <div class="main-header-container">
+        <div>
+            <a th:href="@{/}" href="/"><img class="bg-pic-top" th:src="@{/pictures/app/bg-top.jpg}" src="/pictures/app/bg-top.jpg "
+                                            alt="Zdjęcie talerza z potrawą na turkusowym tle"></a>
+        </div>
+        <div class="main-bar">
+            <div class="main-bar-logo">
+                <a th:href="@{/}" href="/"><img th:src="@{/pictures/app/symbol-food-service.jpg}" src="/pictures/app/symbol-food-service.jpg"
+                                                alt="Logo talerz z widelcem i nożem"></a>
+            </div>
+            <div class="main-bar-text">
+                <p class="app-name">Przepiśnik</p>
+            </div>
+            <div class="main-bar-nav">
+                <div class="bar-nav-button">
+                    <a th:href="@{/}" href="/"><input type="button" value="STRONA GŁÓWNA"></a>
+                </div>
+                <div class="bar-nav-button">
+                    <a th:href="@{/add}" href="/add"><input type="button" value="DODAJ PRZEPIS"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<footer th:fragment="footer">
+    <div class="main-footer-container">
+        <div>
+            <img class="bg-pic-bottom" th:src="@{/pictures/app/bg-bottom.jpg}" src="/pictures/app/bg-bottom.jpg" alt="Turkusowe tło">
+        </div>
+        <div class="footer-details">
+            <div class="copy">
+                <span>&copy;2023 Wszystkie prawa zastrzeżone</span>
+            </div>
+            <div>
+                <a href="mailto:mig01@wp.pl">KONTAKT</a>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

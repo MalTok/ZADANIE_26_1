@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+    <title>Przepis</title>
+</head>
+<body>
+<main layout:fragment="content">
+    <div class="main-recipe-container">
+        <div><img th:src="@{${recipe.img}}" th:alt="|Zdjęcie potrawy ${recipe.title}|"></div>
+        <div class="main-bar">
+            <div>
+                <div>
+                    <h1 th:text="${recipe.title}">Nazwa potrawy</h1>
+                </div>
+                <div>
+                    <h6 th:text="${recipe.description}">Opis</h6>
+                </div>
+                <div>
+                    <p class="likes-amount" th:text="|Liczba polubień: ${recipe.likes}|">Polubienia</p>
+                </div>
+            </div>
+            <div class="main-bar-nav">
+                <div>
+                    <a th:href="@{|/edit?id=${recipe.id}|}" href="/"><input type="button" value="EDYTUJ"></a>
+                </div>
+                <div>
+                    <a th:href="@{|/delete?id=${recipe.id}|}" href="/"><input type="button" value="USUŃ"></a>
+                </div>
+            </div>
+        </div>
+        <div class="recipe-details">
+            <div class="ingredients-details">
+                <p th:text="|SKŁADNIKI / porcje: ${recipe.portion}|">SKŁADNIKI / ILOŚĆ PORCJI</p>
+                <div th:each="ingredientAmount: ${recipe.ingredients}">
+                    <p th:text="|${ingredientAmount.ingredient.name} - ${ingredientAmount.amount}|"></p>
+                </div>
+            </div>
+            <div class="preparation">
+                <div>
+                    <p>PRZYGOTOWANIE</p>
+                    <p th:text="${recipe.preparation}">Przygotowanie</p>
+                </div>
+                <div>
+                    <p>WSKAZÓWKI</p>
+                    <p th:text="${recipe.hints}">Wskazówki</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <p th:text="|Data dodania: ${#temporals.format(recipe.dateAdded, 'yyyy-MM-dd HH:mm:ss')}|">Data dodania</p>
+        </div>
+    </div>
+</main>
+</body>
+</html>
