@@ -5,8 +5,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import pl.mt.cookbook.ingredient.Ingredient;
 import pl.mt.cookbook.IngredientAmount;
-import pl.mt.cookbook.ingredient.IngredientRepository;
 import pl.mt.cookbook.category.CategoryService;
+import pl.mt.cookbook.ingredient.IngredientService;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -16,16 +16,15 @@ import java.util.Optional;
 @Service
 public class RecipeService {
     private final RecipeRepository recipeRepository;
-    private final IngredientRepository ingredientRepository;
+    private final IngredientService ingredientService;
     private final CategoryService categoryService;
 
     public RecipeService(
             RecipeRepository recipeRepository,
-            IngredientRepository ingredientRepository,
-            CategoryService categoryService
+            IngredientService ingredientService, CategoryService categoryService
     ) {
         this.recipeRepository = recipeRepository;
-        this.ingredientRepository = ingredientRepository;
+        this.ingredientService = ingredientService;
         this.categoryService = categoryService;
     }
 
@@ -71,14 +70,26 @@ public class RecipeService {
         String[] ingredientsArray = ingredients.split(";");
         for (String element : ingredientsArray) {
             String[] split = element.split("-");
-            Ingredient ingredient = new Ingredient();
-            ingredient.setName(split[0]);
+            Ingredient ingredient = getIngredient(split);
             IngredientAmount ingredientAmount = new IngredientAmount(recipe, ingredient, split[1]);
             ingredient.addIngredientAmount(ingredientAmount);
             list.add(ingredientAmount);
-            ingredientRepository.save(ingredient);
+            ingredientService.save(ingredient);
         }
         return list;
+    }
+
+    private Ingredient getIngredient(String[] split) {
+        String name = split[0];
+        Ingredient ingredient;
+        Optional<Ingredient> optionalIngredient = ingredientService.findByName(name);
+        if (optionalIngredient.isPresent()) {
+            ingredient = optionalIngredient.get();
+        } else {
+            ingredient = new Ingredient();
+            ingredient.setName(split[0]);
+        }
+        return ingredient;
     }
 
     public RecipeDto mapRecipeToDto(Recipe recipe) {

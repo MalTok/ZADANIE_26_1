@@ -7,7 +7,7 @@
 <body>
 <main layout:fragment="content">
     <div class="main-recipe-container">
-        <div><img th:src="@{${recipe.img}}" th:alt="|Zdjęcie potrawy ${recipe.title}|"></div>
+        <div><img th:src="@{${recipe.img.startsWith('http') ? recipe.img : '/pictures/recipes/' + recipe.img}}" th:alt="|Zdjęcie potrawy ${recipe.title}|"></div>
         <div class="main-bar">
             <div>
                 <div>
@@ -21,11 +21,25 @@
                 </div>
             </div>
             <div class="main-bar-nav">
-                <div>
-                    <a th:href="@{|/edit?id=${recipe.id}|}" href="/"><input type="button" value="EDYTUJ"></a>
+                <div class="like-button-container">
+                    <div th:unless="${recipe.liked}">
+                        <a th:href="@{|/recipe/like/${recipe.id}|}">
+                            <img class="like-button-recipe" th:src="@{/pictures/app/like-button.png}" src="/pictures/app/like-button.png"
+                                 alt="Serce w kole na czarnym tle">
+                        </a>
+                    </div>
+                    <div th:if="${recipe.liked}">
+                        <a th:href="@{|/recipe/unlike/${recipe.id}|}">
+                            <img class="like-button-recipe" th:src="@{/pictures/app/like-button-liked.png}"
+                                 src="/pictures/app/like-button-liked.png" alt="Serce w kole na turkusowym tle">
+                        </a>
+                    </div>
                 </div>
                 <div>
-                    <a th:href="@{|/delete?id=${recipe.id}|}" href="/"><input type="button" value="USUŃ"></a>
+                    <a th:href="@{|/recipe/edit/${recipe.id}|}"><input type="button" value="EDYTUJ"></a>
+                </div>
+                <div>
+                    <a th:href="@{|/recipe/delete/${recipe.id}|}" onclick="return confirm('Czy na pewno chcesz usunąć przepis?')"><input type="button" value="USUŃ"></a>
                 </div>
             </div>
         </div>

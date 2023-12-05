@@ -41,8 +41,8 @@ VALUES
      'Podawać z: sosem pieczarkowym / grzybowym / ajwarem / gulaszem / cukrem lub cukier + oddzielnie gęsta śmietana',
      'placki-ziemniaczane.jpg',
      '2023-11-28 20:26:20',
-     0,
-     false);
+     1,
+     true);
 
 INSERT INTO ingredient_amount
 (ingredient_id, recipe_id, amount)
@@ -61,17 +61,17 @@ VALUES
     (12L, 2L, '2 łyżki');
 
 INSERT INTO category
-(name, description, img)
+(name, description, img, url)
 VALUES
-    ('NA SŁODKO', 'Pyszne, tradycyjne ciasta i desery dla łasuchów.', 'na-slodko.jpg'),
-    ('CIASTA', 'Torty, ciasta drożdzowe i inne słodkie wypieki.', 'ciasto.jpg'),
-    ('DESERY', 'Lody, galaretki, kremy i wiele innych.', 'deser.jpg'),
-    ('ZUPY', 'Polskie i zagraniczne specjały, sycące.', 'zupa.jpg'),
-    ('DANIA GŁÓWNE', 'Pomysły na szybki i pożywny obiad dla całej rodziny.', 'danie-glowne.jpg'),
-    ('SAŁATKI', 'Idealne na imprezy i nie tylko!', 'salatka.jpg'),
-    ('PRZEKĄSKI', 'Na słodko i na słono.', 'przekaska.jpg'),
-    ('NA CIEPŁO', 'Zawsze gdy masz ochotę na ciepły posiłek', 'na-cieplo.jpg'),
-    ('INNE', 'Pyszne różności.', 'inne.jpg');
+    ('NA SŁODKO', 'Pyszne, tradycyjne ciasta i desery dla łasuchów.', 'na-slodko.jpg','na-slodko'),
+    ('CIASTA', 'Torty, ciasta drożdzowe i inne słodkie wypieki.', 'ciasto.jpg', 'ciasta'),
+    ('DESERY', 'Lody, galaretki, kremy i wiele innych.', 'deser.jpg', 'desery'),
+    ('ZUPY', 'Polskie i zagraniczne specjały, sycące.', 'zupa.jpg', 'zupy'),
+    ('DANIA GŁÓWNE', 'Pomysły na szybki i pożywny obiad dla całej rodziny.', 'danie-glowne.jpg', 'dania-glowne'),
+    ('SAŁATKI', 'Idealne na imprezy i nie tylko!', 'salatka.jpg', 'salatki'),
+    ('PRZEKĄSKI', 'Na słodko i na słono.', 'przekaska.jpg', 'przekaski'),
+    ('NA CIEPŁO', 'Zawsze gdy masz ochotę na ciepły posiłek', 'na-cieplo.jpg', 'na-cieplo'),
+    ('INNE', 'Pyszne różności.', 'inne.jpg', 'inne');
 
 INSERT INTO recipe_categories
 (recipes_id, categories_id)

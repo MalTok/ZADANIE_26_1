@@ -19,7 +19,7 @@ public class Recipe {
     private int portion;
     @OneToMany(mappedBy = "recipe", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private List<IngredientAmount> ingredients = new ArrayList<>();
-    @Column(length = 2000)
+    @Column(columnDefinition = "TEXT")
     private String preparation;
     private String hints;
     private String img;

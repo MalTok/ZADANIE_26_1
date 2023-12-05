@@ -13,8 +13,10 @@ public class Category {
     private String name;
     private String description;
     private String img;
-    @ManyToMany(mappedBy = "categories")
+    @ManyToMany(mappedBy = "categories", cascade = CascadeType.REMOVE)
     private List<Recipe> recipes;
+    @Column(unique = true)
+    private String url;
 
     public Category() {
     }
@@ -57,6 +59,18 @@ public class Category {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String createUrl() {
+        return name.toLowerCase().replaceAll(" ", "-");
     }
 
     public void addRecipe(Recipe recipe) {

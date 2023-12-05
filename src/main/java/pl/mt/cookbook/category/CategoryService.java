@@ -1,5 +1,6 @@
 package pl.mt.cookbook.category;
 
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,4 +21,26 @@ public class CategoryService {
     public Optional<Category> findById(Long id) {
         return categoryRepository.findById(id);
     }
+
+    public Optional<Category> findByUrl(String url) {
+        return categoryRepository.findByUrl(url);
+    }
+
+    @Transactional
+    public boolean save(Category category) {
+        String name = category.getName();
+        Optional<Category> categoryOptional = categoryRepository.findByNameIgnoreCase(name);
+        if (categoryOptional.isPresent()) {
+            return false;
+        } else {
+            category.setUrl(category.createUrl());
+            categoryRepository.save(category);
+            return true;
+        }
+    }
+
+    public void remove(Long id) {
+        categoryRepository.deleteById(id);
+    }
+
 }
