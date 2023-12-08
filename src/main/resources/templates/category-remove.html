@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+    <title>Usuwanie kategorii</title>
+</head>
+<body>
+<main layout:fragment="content">
+    <div class="container">
+        <form th:action="@{/category/remove}" action="/category/remove" method="post" th:object="${categoryToRemove}">
+            <div class="mb-3">
+                <label class="form-label">
+                    Kategoria do usunięcia
+                    <select class="form-select mb-3" th:field="${categoryToRemove.id}">
+                        <option th:each="category: ${categories}" th:value="${category.id}" th:text="${category.name}">Kategoria</option>
+                    </select>
+                </label>
+            </div>
+            <button class="search-button" type="submit" onclick="return confirm('Czy na pewno chcesz usunąć kategorię? Wszystkie przepisy przypisane do tej kategorii również zostaną usunięte.');">USUŃ</button>
+        </form>
+    </div>
+</main>
+</body>
+</html>>

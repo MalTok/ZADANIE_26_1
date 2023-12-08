@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="https://www.thymeleaf.org">
+<body>
+<header th:fragment="header">
+    <div class="main-header-container">
+        <div>
+            <a th:href="@{/}" href="/"><img class="bg-pic-top" th:src="@{/pictures/app/bg-top.jpg}"
+                                            src="/pictures/app/bg-top.jpg "
+                                            alt="Zdjęcie talerza z potrawą na turkusowym tle"></a>
+        </div>
+        <div class="main-bar">
+            <div class="main-bar-logo">
+                <a th:href="@{/}" href="/"><img th:src="@{/pictures/app/symbol-food-service.jpg}"
+                                                src="/pictures/app/symbol-food-service.jpg"
+                                                alt="Logo talerz z widelcem i nożem"></a>
+            </div>
+            <div class="main-bar-text">
+                <p class="app-name">Przepiśnik</p>
+            </div>
+            <div class="main-bar-nav">
+                <div class="bar-nav-button">
+                    <a th:href="@{/}" href="/"><input type="button" value="STRONA GŁÓWNA"></a>
+                </div>
+                <div class="bar-nav-button">
+                    <a th:href="@{/recipe/add}" href="/add"><input type="button" value="DODAJ PRZEPIS"></a>
+                </div>
+                <div class="bar-nav-button">
+                    <a th:href="@{/category/add}" href="/categor/add"><input type="button" value="DODAJ KATEGORIĘ"></a>
+                </div>
+                <div class="bar-nav-button">
+                    <a th:href="@{/category/remove}" href="/categor/remove"><input type="button" value="USUŃ KATEGORIĘ"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div th:fragment="main-bar">
+    <div>
+        <p>Witaj w aplikacji!</p>
+        <p>Tutaj możesz dodawać, edytować i usuwać przepisy.</p>
+        <p>Miłego użytkowania :)</p>
+    </div>
+    <div class="search-bar-nav">
+        <div>
+            <form th:action="@{/search}" action="/search" method="get">
+                <label>
+                    <input type="text" name="word" placeholder="Znajdź przepis...">
+                </label>
+                <button class="search-button">Szukaj</button>
+            </form>
+        </div>
+        <div class="bar-filter-buttons">
+            <div>
+                <a th:href="@{/}" href="/"><input type="button" value="WYŚWIETL WSZYSTKIE"></a>
+            </div>
+            <div>
+                <a th:href="@{/best}" href="/best"><input type="button" value="NAJLEPSZE PRZEPISY"></a>
+            </div>
+            <div th:each="category: ${categories}">
+                <a th:href="@{|/category/${category.url}|}"><input type="button" th:value="${category.name}"></a>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:fragment="category-preview" class="category-preview">
+    <img th:src="@{${filteredCategory.img.startsWith('http') ? filteredCategory.img : '/pictures/category/' + filteredCategory.img}}"
+         th:alt="|Ilustracja kategorii ${filteredCategory.name}|">
+    <h2 th:text="${filteredCategory.name}">Nazwa kategorii</h2>
+    <h6 th:text="${filteredCategory.description}">Opis kategorii</h6>
+</div>
+<div th:fragment="recipe-preview">
+    <p th:text="${emptyMessage}"></p>
+    <div class="recipe-preview-container">
+        <div class="recipe-preview" th:each="recipe: ${recipeList}">
+            <div>
+                <a th:href="@{|/recipe/${recipe.id}|}">
+                    <img class="recipe-picture-miniature"
+                         th:src="@{${recipe.img.startsWith('http') ? recipe.img : '/pictures/recipes/' + recipe.img}}"
+                         th:alt="|Zdjęcie potrawy ${recipe.title}|">
+                </a>
+            </div>
+            <div>
+                <div class="recipe-name-container">
+                    <a th:href="@{|/recipe/${recipe.id}|}">
+                        <p th:text="${recipe.title}">Nazwa potrawy</p>
+                    </a>
+                </div>
+                <div class="like-button-container">
+                    <div>
+                        <p class="recipe-likes" th:text="${recipe.likes}"></p>
+                    </div>
+                    <div>
+                        <a th:href="@{|/recipe/like/${recipe.id}|}">
+                            <img th:unless="${recipe.likes > 0}" class="like-button" th:src="@{/pictures/app/like-button.png}" src="/pictures/app/like-button.png"
+                                 alt="Serce w kole na czarnym tle">
+                            <img th:if="${recipe.likes > 0}" class="like-button" th:src="@{/pictures/app/like-button-liked.png}"
+                                 src="/pictures/app/like-button-liked.png" alt="Serce w kole na turkusowym tle">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:fragment="footer">
+    <div class="main-footer-container">
+        <div>
+            <img class="bg-pic-bottom" th:src="@{/pictures/app/bg-bottom.jpg}" src="/pictures/app/bg-bottom.jpg"
+                 alt="Turkusowe tło">
+        </div>
+        <div class="footer-details">
+            <div class="copy">
+                <span>&copy;2023 Wszystkie prawa zastrzeżone</span>
+            </div>
+            <div>
+                <a href="mailto:mig01@wp.pl">KONTAKT</a>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
