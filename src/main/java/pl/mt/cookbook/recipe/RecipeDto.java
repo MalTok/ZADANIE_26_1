@@ -1,7 +1,5 @@
 package pl.mt.cookbook.recipe;
 
-import pl.mt.cookbook.category.Category;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,13 +14,13 @@ public class RecipeDto {
     private String img;
     private LocalDateTime dateAdded;
     private int likes;
-    private List<Category> categories;
+    private List<Long> categoryIds;
 
     public RecipeDto() {
     }
 
     public RecipeDto(Long id, String title, String description, int portion, String ingredients, String preparation,
-                     String hints, String img, LocalDateTime dateAdded, int likes, List<Category> categories) {
+                     String hints, String img, LocalDateTime dateAdded, int likes, List<Long> categoryIds) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -33,7 +31,7 @@ public class RecipeDto {
         this.img = img;
         this.dateAdded = dateAdded;
         this.likes = likes;
-        this.categories = categories;
+        this.categoryIds = categoryIds;
     }
 
     public Long getId() {
@@ -112,11 +110,11 @@ public class RecipeDto {
         this.likes = likes;
     }
 
-    public List<Category> getCategories() {
-        return categories;
+    public List<Long> getCategoryIds() {
+        return categoryIds;
     }
 
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
+    public void setCategoryIds(List<Long> categoryIds) {
+        this.categoryIds = categoryIds;
     }
 }

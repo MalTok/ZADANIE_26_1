@@ -3,21 +3,16 @@ package pl.mt.cookbook.recipe;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pl.mt.cookbook.category.Category;
-import pl.mt.cookbook.category.CategoryService;
 
-import java.util.List;
 import java.util.Optional;
 
 @RequestMapping("/recipe")
 @Controller
 public class RecipeController {
     private final RecipeService recipeService;
-    private final CategoryService categoryService;
 
-    public RecipeController(RecipeService recipeService, CategoryService categoryService) {
+    public RecipeController(RecipeService recipeService) {
         this.recipeService = recipeService;
-        this.categoryService = categoryService;
     }
 
     @GetMapping("/{id}")
@@ -32,8 +27,6 @@ public class RecipeController {
 
     @GetMapping("/add")
     public String addRecipe(Model model) {
-        List<Category> categoryList = categoryService.findAll();
-        model.addAttribute("categories", categoryList);
         model.addAttribute("recipe", new RecipeDto());
         return "recipe-form";
     }
@@ -46,18 +39,22 @@ public class RecipeController {
 
     @GetMapping("/edit/{id}")
     public String editRecipe(@PathVariable Long id, Model model) {
-        List<Category> categoryList = categoryService.findAll();
-        model.addAttribute("categories", categoryList);
         Optional<Recipe> foundRecipe = recipeService.find(id);
         if (foundRecipe.isPresent()) {
             Recipe recipe = foundRecipe.get();
             RecipeDto recipeDto = recipeService.mapRecipeToDto(recipe);
             model.addAttribute("recipe", recipeDto);
         }
-        return "recipe-form";
+        return "recipe-form-edit";
     }
 
-    @GetMapping("/delete/{id}")
+    @PostMapping("/update/{id}")
+    public String update(@PathVariable Long id, RecipeDto recipeDto) {
+        recipeService.update(id, recipeDto);
+        return "redirect:/recipe/" + id;
+    }
+
+    @PostMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         recipeService.delete(id);
         return "redirect:/";
@@ -66,12 +63,6 @@ public class RecipeController {
     @GetMapping("/like/{id}")
     public String like(@PathVariable Long id) {
         recipeService.like(id);
-        return "redirect:/recipe/" + id;
-    }
-
-    @GetMapping("/unlike/{id}")
-    public String unlike(@PathVariable Long id) {
-        recipeService.unlike(id);
         return "redirect:/recipe/" + id;
     }
 }

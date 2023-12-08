@@ -1,8 +1,7 @@
-package pl.mt.cookbook;
+package pl.mt.cookbook.recipe;
 
 import jakarta.persistence.*;
 import pl.mt.cookbook.ingredient.Ingredient;
-import pl.mt.cookbook.recipe.Recipe;
 
 @Entity
 public class IngredientAmount {

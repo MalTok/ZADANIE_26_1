@@ -84,7 +84,8 @@ main {
     width: 100%;
 }
 
-input[type=button] {
+input[type=button],
+input[type=submit] {
     border: none;
     white-space: normal;
     font-size: 12px;
@@ -96,6 +97,7 @@ input[type=button] {
 }
 
 input[type=button]:hover,
+input[type=submit]:hover,
 .search-button:hover {
     background: #5098a4;
 }
@@ -218,11 +220,6 @@ input[type=button]:hover,
     width: 300px;
 }
 
-.form-message {
-    font-size: 20px;
-    padding-top: 20px;
-}
-
 .mb-3 {
     width: 100%;
 }
@@ -236,4 +233,13 @@ input[type=button]:hover,
 
 textarea {
     height: 150px;
+}
+
+.error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    font-size: 25px;
 }

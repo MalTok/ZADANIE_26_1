@@ -2,7 +2,6 @@ package pl.mt.cookbook.recipe;
 
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
-import pl.mt.cookbook.IngredientAmount;
 import pl.mt.cookbook.category.Category;
 
 import java.time.LocalDateTime;
@@ -17,7 +16,7 @@ public class Recipe {
     private String title;
     private String description;
     private int portion;
-    @OneToMany(mappedBy = "recipe", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "recipe", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval = true)
     private List<IngredientAmount> ingredients = new ArrayList<>();
     @Column(columnDefinition = "TEXT")
     private String preparation;
@@ -26,7 +25,6 @@ public class Recipe {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dateAdded;
     private int likes;
-    private boolean liked;
     @ManyToMany
     private List<Category> categories = new ArrayList<>();
 
@@ -126,14 +124,6 @@ public class Recipe {
         ingredients.add(ingredientAmount);
     }
 
-    public boolean isLiked() {
-        return liked;
-    }
-
-    public void setLiked(boolean liked) {
-        this.liked = liked;
-    }
-
     @Override
     public String toString() {
         return "Recipe{" +
@@ -146,7 +136,6 @@ public class Recipe {
                 ", img='" + img + '\'' +
                 ", dateAdded=" + dateAdded +
                 ", likes=" + likes +
-                ", liked=" + liked +
                 '}';
     }
 }

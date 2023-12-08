@@ -7,7 +7,6 @@
 <body>
 <main layout:fragment="content">
     <div class="container">
-        <p class="form-message" th:text="${message}"></p>
         <form th:action="@{/category/add}" action="/category/add" method="post" th:object="${category}">
             <div class="mb-3">
                 <label class="form-label">

@@ -1,7 +1,7 @@
 package pl.mt.cookbook.ingredient;
 
 import jakarta.persistence.*;
-import pl.mt.cookbook.IngredientAmount;
+import pl.mt.cookbook.recipe.IngredientAmount;
 
 import java.util.ArrayList;
 import java.util.List;

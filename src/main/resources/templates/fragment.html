@@ -68,24 +68,6 @@
     <h2 th:text="${filteredCategory.name}">Nazwa kategorii</h2>
     <h6 th:text="${filteredCategory.description}">Opis kategorii</h6>
 </div>
-<div class="like-button-container" th:fragment="like-button">
-    <div>
-        <p class="recipe-likes" th:text="${recipe.likes}"></p>
-    </div>
-    <div th:unless="${recipe.liked}">
-        <a th:href="@{|/recipe/like/${recipe.id}|}">
-            <img class="like-button" th:src="@{/pictures/app/like-button.png}"
-                 src="/pictures/app/like-button.png"
-                 alt="Serce w kole na czarnym tle">
-        </a>
-    </div>
-    <div th:if="${recipe.liked}">
-        <a th:href="@{|/recipe/unlike/${recipe.id}|}">
-            <img class="like-button" th:src="@{/pictures/app/like-button-liked.png}"
-                 src="/pictures/app/like-button-liked.png" alt="Serce w kole na turkusowym tle">
-        </a>
-    </div>
-</div>
 <div th:fragment="recipe-preview">
     <p th:text="${emptyMessage}"></p>
     <div class="recipe-preview-container">
@@ -107,16 +89,11 @@
                     <div>
                         <p class="recipe-likes" th:text="${recipe.likes}"></p>
                     </div>
-                    <div th:unless="${recipe.liked}">
+                    <div>
                         <a th:href="@{|/recipe/like/${recipe.id}|}">
-                            <img class="like-button" th:src="@{/pictures/app/like-button.png}"
-                                 src="/pictures/app/like-button.png"
+                            <img th:unless="${recipe.likes > 0}" class="like-button" th:src="@{/pictures/app/like-button.png}" src="/pictures/app/like-button.png"
                                  alt="Serce w kole na czarnym tle">
-                        </a>
-                    </div>
-                    <div th:if="${recipe.liked}">
-                        <a th:href="@{|/recipe/unlike/${recipe.id}|}">
-                            <img class="like-button" th:src="@{/pictures/app/like-button-liked.png}"
+                            <img th:if="${recipe.likes > 0}" class="like-button" th:src="@{/pictures/app/like-button-liked.png}"
                                  src="/pictures/app/like-button-liked.png" alt="Serce w kole na turkusowym tle">
                         </a>
                     </div>

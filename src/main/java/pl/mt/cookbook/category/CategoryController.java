@@ -19,9 +19,6 @@ public class CategoryController {
 
     @GetMapping("/{url}")
     public String category(@PathVariable String url, Model model) {
-        List<Category> categoryList = categoryService.findAll();
-        model.addAttribute("categories", categoryList);
-
         Optional<Category> categoryOptional = categoryService.findByUrl(url);
         if (categoryOptional.isPresent()) {
             Category category = categoryOptional.get();
@@ -42,20 +39,14 @@ public class CategoryController {
     }
 
     @PostMapping("/add")
-    public String add(Category category, Model model) {
-        boolean saved = categoryService.save(category);
-        if (saved) {
-            model.addAttribute("message", "Zapisano kategorię!");
-        } else {
-            model.addAttribute("message", "Kategoria " + category.getName() + " już istnieje.");
-        }
-        return "category-form";
+    public String add(Category category) {
+        Category returnedCategory = categoryService.save(category);
+        String url = returnedCategory.getUrl();
+        return "redirect:/category/" + url;
     }
 
     @GetMapping("/remove")
     public String removeForm(Model model) {
-        List<Category> categoryList = categoryService.findAll();
-        model.addAttribute("categories", categoryList);
         model.addAttribute("categoryToRemove", new Category());
         return "category-remove";
     }

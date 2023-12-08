@@ -27,15 +27,15 @@ public class CategoryService {
     }
 
     @Transactional
-    public boolean save(Category category) {
+    public Category save(Category category) {
         String name = category.getName();
         Optional<Category> categoryOptional = categoryRepository.findByNameIgnoreCase(name);
         if (categoryOptional.isPresent()) {
-            return false;
+            return categoryOptional.get();
         } else {
             category.setUrl(category.createUrl());
             categoryRepository.save(category);
-            return true;
+            return category;
         }
     }
 
