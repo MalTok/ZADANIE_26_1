@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+    <title>Użytkownicy</title>
+</head>
+<body>
+<main layout:fragment="content">
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Lp.</th>
+                    <th scope="col">Imię</th>
+                    <th scope="col">Nazwisko</th>
+                    <th scope="col">Data urodzenia</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Nesletter</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="user, status: ${users}">
+                    <td th:text="${status.count}">1</td>
+                    <td th:text="${user.firstName}">Jan</td>
+                    <td th:text="${user.lastName}">Kowalski</td>
+                    <td th:text="${#dates.format(user.birthDate, 'yyyy-MM-dd')}">1994-12-11</td>
+                    <td th:text="${user.email}">jankowal@example.com</td>
+                    <td th:text="${user.newsletter == true ? 'TAK' : 'NIE'}">TAK</td>
+                </tr>
+            </tbody>
+        </table>
+        <p th:text="${message}"></p>
+    </div>
+</main>
+</body>
+</html>
