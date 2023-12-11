@@ -120,7 +120,14 @@ VALUES
     (20L, 3L, 'szczypta');
 
 INSERT INTO recipe_categories
-(recipes_id, categories_id)
+    (recipes_id, categories_id)
 VALUES
     (3L, 6L),
     (3L, 7L);
+
+INSERT INTO app_user
+    (first_name, last_name, birth_date, email, newsletter)
+VALUES
+    ('Jan', 'Kowalski', '1994-12-11', 'jankowal@wp.pl', false),
+    ('Anna', 'Zawadzka', '2023-12-07', 'anka134@op.pl', true),
+    ('Mikołaj', 'Grudzień', '1971-10-19', 'gwiazdoooor@swiety.com', false);

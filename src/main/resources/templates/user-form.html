@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+    <title>Dodawanie użytkownika</title>
+</head>
+<body>
+<main layout:fragment="content">
+    <div class="container">
+        <form th:action="@{/user/add}" action="/user/add" method="post" th:object="${user}">
+            <div class="mb-3">
+                <label class="form-label">
+                    Imię
+                    <input type="text" class="form-control" th:field="*{firstName}" placeholder="Jan">
+                </label>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">
+                    Nazwisko
+                    <input type="text" class="form-control" th:field="*{lastName}"
+                           placeholder="Kowalski">
+                </label>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">
+                    Data urodzenia
+                    <input type="date" class="form-control" th:field="*{birthDate}">
+                </label>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">
+                    Email
+                    <input type="email" class="form-control" th:field="*{email}" placeholder="jan@kowalski.pl">
+                </label>
+            </div>
+            <div class="mb-3">
+                <label class="form-check-label">
+                    Newsletter
+                    <input type="checkbox" class="form-check-input" th:field="*{newsletter}">
+                </label>
+            </div>
+            <button class="search-button" type="submit">DODAJ</button>
+        </form>
+    </div>
+</main>
+</body>
+</html>
